@@ -59,6 +59,13 @@ function remove(contactNum) {
     contactManager.remove(contactNum);
 }
 
+function save (contactNum) {
+    contactManager.save(contactNum);
+}
+
+function sEdit () {
+    contactManager.sEdit();
+}
 
 class Contact {
     constructor(name, age, email, phonenumber, address) {
@@ -152,8 +159,7 @@ class MyContactsManager {
             }
         }
 
-
-
+        
     }
 
 
@@ -190,12 +196,27 @@ class MyContactsManager {
 
         }
 
-        
+
         this.displayContactsAsList("contact-list");
     }
 
-    edit(contact) {
+    edit(number) {
         alert('edit');
+        this.details(number);
+
+        let f = document.querySelectorAll(".i-edit");
+        for (let d of f) {
+            d.removeAttribute('readonly');
+        }
+        console.log(f);        
+    }
+
+    sEdit() {
+        let f = document.querySelectorAll(".i-edit");
+        for (let d of f) {
+            d.removeAttribute('readonly');
+        }
+        console.log(f); 
     }
 
     // Sort the contact list

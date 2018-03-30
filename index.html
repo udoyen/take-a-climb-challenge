@@ -14,14 +14,14 @@
             <div class="fields">
                 <div class="add-box-container">
                     Name:
-                    <input type="text" name="name" id="name"> Email:
-                    <input type="email" name="email" id="email"> Age:
-                    <input type="number" name="age" id="age"> Phonenumber:
+                    <input type="text" name="name" id="name" required> Email:
+                    <input type="email" name="email" id="email" required> Age:
+                    <input type="number" name="age" id="age" required> Phonenumber:
                     <input type="tel" name="phonenumber" id="phonenumber" pattern="[0-9]*">
                 </div>
                 <div class="myTextarea">
                     <span class="add-label">Address:</span> 
-                    <textarea name="address" id="address" cols="30" rows="10"></textarea>
+                    <textarea name="address" id="address" cols="30" rows="10" required></textarea>
 
                 </div>
             </div>
@@ -41,21 +41,21 @@
                     <div class="add-box-outer-container">
                         <div class="add-box-container">
                             Name:
-                            <input type="text" name="ename" id="ename" class="edit-me"> Email:
-                            <input type="email" name="eemail" id="eemail" class="edit-me"> Age:
-                            <input type="number" name="eage" id="eage" class="edit-me"> Phonenumber:
-                            <input type="tel" name="ephonenumber" id="ephonenumber" class="edit-me" pattern="[0-9]*">
+                            <input class="i-edit" type="text" name="ename" id="ename" class="edit-me" readonly required> Email:
+                            <input class="i-edit" type="email" name="eemail" id="eemail" class="edit-me" readonly required> Age:
+                            <input class="i-edit" type="number" name="eage" id="eage" class="edit-me" readonly required> Phonenumber:
+                            <input class="i-edit" type="tel" name="ephonenumber" id="ephonenumber" class="edit-me" pattern="[0-9]*" readonly required>
                         </div>
                         <div class="myTextarea">
                             <span class="add-label"> Address:</span>
-                            <textarea name="eaddress" id="eaddress" cols="30" rows="10" class="edit-me"></textarea>
+                            <textarea  class="i-edit" name="eaddress" id="eaddress" cols="30" rows="10" class="edit-me" readonly required></textarea>
 
                         </div>
                     </div>
 
                     <div class="edit-btn">
-                        <button onclick="edit();">Edit Contact</button>
-                        <button onclick="remove();">Delete Contact</button>
+                        <button id="e-btn" onclick="sEdit();">Edit Contact</button>
+                        <button id="d-btn" onclick="sRemove();">Delete Contact</button>
                     </div>
                 </div>
             </div>
