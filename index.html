@@ -17,7 +17,7 @@
                     <input type="text" name="name" id="name" required> Email:
                     <input type="email" name="email" id="email" required> Age:
                     <input type="number" name="age" id="age" required> Phonenumber:
-                    <input type="tel" name="phonenumber" id="phonenumber" pattern="[0-9]*">
+                    <input type="tel" name="phonenumber" id="phonenumber" pattern="[0-9]*" required>
                 </div>
                 <div class="myTextarea">
                     <span class="add-label">Address:</span> 
@@ -28,6 +28,7 @@
             <div>
                 <div class="btn-container">
                     <button onclick="addNewContact();">Add Contacts</button>
+                    <button onclick="clearForm();">Clear</button>
                 </div>
             </div>
         </section>
@@ -56,6 +57,7 @@
                     <div class="edit-btn">
                         <button id="e-btn" onclick="sEdit();">Edit Contact</button>
                         <button id="d-btn" onclick="sRemove();">Delete Contact</button>
+                        <button id="d-btn" onclick="save();">Save Contact</button>
                     </div>
                 </div>
             </div>
