@@ -1,14 +1,14 @@
 window.onload = init;
 
 // The contact manager as a global variable
-let contactManager; 
+let contactManager;
 
-function init() { 
-	// create an instance of the contact manager
-	contactManager = new MyContactsManager();
-    
+function init() {
+    // create an instance of the contact manager
+    contactManager = new MyContactsManager();
+
     // Load any stored contacts information
-  	contactManager.load();
+    contactManager.load();
 
     // Display contacts in a table
     // Pass the id of the HTML element that will contain the table
@@ -38,59 +38,67 @@ function addNewContact() {
 }
 
 function emptyList() {
-	contactManager.empty();
-  	contactManager.displayContactsAsList("contact-list");
+    contactManager.empty();
+    contactManager.displayContactsAsList("contact-list");
 }
 
 function loadList() {
-	contactManager.load();
-  	contactManager.displayContactsAsList("contact-list");
+    contactManager.load();
+    contactManager.displayContactsAsList("contact-list");
 }
 
-function details (number) {
+function details(number) {
     contactManager.details(number);
+}
+
+function edit(contactNum) {
+    contactManager.edit(contactNum);
+}
+
+function remove(contactNum) {
+    contactManager.remove(contactNum);
 }
 
 
 class Contact {
-   constructor(name, age, email, phonenumber, address) {
-    this.name = name;
-    this.email = email;
-    this.age = age;
-    this.phonenumber = phonenumber;
-    this.address = address;
-    // Static property
-    Contact.numberCreated++;
-    alert('Contacts created');
-  }
+    constructor(name, age, email, phonenumber, address) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.phonenumber = phonenumber;
+        this.address = address;
+        // Static property
+        Contact.numberCreated++;
+        alert('Contacts created');
+    }
 
-  // Static method
-  static getContactsObjNum() {
-    return numberCreated;
-  }
-  
+    // Static method
+    static getContactsObjNum() {
+        return numberCreated;
+    }
+
 }
 
 class MyContactsManager {
-    constructor () {
+    constructor() {
         this.contactsList = [];
         alert('MyContactsManager created');
     }
 
-    
+
     // Erase all contacts
-    empty () {
+    empty() {
         this.contactsList = [];
     }
 
     // add a contact
-    add (contact) {
+    add(contact) {
 
         if (this.contactsList.length > 0) {
             alert('inside add function')
-             // Check for duplicates
-            for ( let c of this.contactsList) {
-                if (contact.email === c.email || 
+            // Check for duplicates
+            for (let c of this.contactsList) {
+                if (contact.email === c.email ||
                     contact.phonenumber === c.phonenumber
                 ) {
                     alert('This email is already registered!');
@@ -106,17 +114,15 @@ class MyContactsManager {
             this.contactsList.push(contact);
             this.save();
         }
-       
-        
-        
+
+
+
         // alert(this.contactsList.length);
     }
 
-    details (number) {
+    details(number) {
         // Load the contacts
         this.load();
-
-        let m = [];
 
         let name = document.querySelector("#ename");
         let email = document.querySelector("#eemail");
@@ -124,7 +130,7 @@ class MyContactsManager {
         let phonenumber = document.querySelector('#ephonenumber');
         let address = document.querySelector('#eaddress');
 
-         // Empty the input fields
+        // Empty the input fields
         name.value = "";
         email.value = "";
         age.value = "";
@@ -133,7 +139,7 @@ class MyContactsManager {
         // Then load them with the contacts 
         // information
         for (let c of this.contactsList) {
-            // The id of the clicked element
+            // Identify the clicked element
             if (number == c.phonenumber) {
                 // now set the values of the 
                 // input fields
@@ -146,26 +152,54 @@ class MyContactsManager {
             }
         }
 
-        
+
 
     }
 
-    // Remove contact
-    remove (contact) {
-        for (let i = 0; i < this.contactsList.length; i++) {
-            var d = this.contactsList[i];
 
-            if (d.email === contact.email) {
-                // remove at index i
-                this.contactsList.splice(i, i);
-                // stop
+
+    // Remove contact
+    remove(contactNum) {
+        alert('remove');
+        let ename = document.querySelector("#ename");
+        let eemail = document.querySelector("#eemail");
+        let eage = document.querySelector('#eage');
+        let ephonenumber = document.querySelector('#ephonenumber');
+        let eaddress = document.querySelector('#eaddress');
+        this.load();
+
+        alert(this.contactsList.length);
+
+        for (let i = 0; i < this.contactsList.length; i++) {
+            var c = this.contactsList[i];
+
+            if (c.phonenumber === contactNum) {
+                this.contactsList.splice(i, 1);
+                if (ephonenumber.value === contactNum) {
+                    alert('inside if for clearing');
+                    // Empty the input fields
+                    ename.value = "";
+                    eemail.value = "";
+                    eage.value = "";
+                    ephonenumber.value = "";
+                    eaddress.value = "";
+                }
+                this.save();
                 break;
             }
+
         }
+
+        
+        this.displayContactsAsList("contact-list");
+    }
+
+    edit(contact) {
+        alert('edit');
     }
 
     // Sort the contact list
-    sort () {
+    sort() {
         this.conatctsList.sort(MyContactsManager.compareByName);
     }
 
@@ -182,50 +216,53 @@ class MyContactsManager {
     }
 
     printContactsToConsole() {
-		this.contactsList.forEach(function(c) {
-			console.log(c.name);
-		});
-	}
-	
-	load() {
-		if(localStorage.contacts !== undefined) {
-			// the array of contacts is saved in JSON, let's convert
-			// it back to a reak JavaScript object.
-			this.contactsList = JSON.parse(localStorage.contacts);
-		}
-	}
-	
-	save() {
-		// We can only save strings in local Storage. So, let's convert
-		// our array of contacts to JSON
-		localStorage.contacts = JSON.stringify(this.contactsList);
-	} 
-	
-  	displayContactsAsList(idOfContainer) {
-		// empty the container that contains the results
-    	let container = document.querySelector("#" + idOfContainer);
-    	container.innerHTML = "";
+        this.contactsList.forEach(function (c) {
+            console.log(c.name);
+        });
+    }
 
-		
-		if(this.contactsList.length === 0) {
-			container.innerHTML = "<li>No contacts to display!</li>";
-			// stop the execution of this method
-			return;
-		}  
-  
-    	         
-    	// iterate on the array of users
-    	this.contactsList.forEach(function(currentContact) {
+    load() {
+        if (localStorage.contacts !== undefined) {
+            // the array of contacts is saved in JSON, let's convert
+            // it back to a reak JavaScript object.
+            this.contactsList = JSON.parse(localStorage.contacts);
+        }
+    }
+
+    save() {
+        // We can only save strings in local Storage. So, let's convert
+        // our array of contacts to JSON
+        localStorage.contacts = JSON.stringify(this.contactsList);
+    }
+
+    displayContactsAsList(idOfContainer) {
+        // empty the container that contains the results
+        let container = document.querySelector("#" + idOfContainer);
+        container.innerHTML = "";
+
+
+        if (this.contactsList.length === 0) {
+            container.innerHTML = "<li>No contacts to display!</li>";
+            // stop the execution of this method
+            return;
+        }
+
+
+        // iterate on the array of users
+        this.contactsList.forEach(function (currentContact) {
             // creates a list item
             var list = document.createElement("li");
-        	list.innerHTML = "<li class='contact-name-box'>" + currentContact.name + " " + "<button onclick='details(" + JSON.stringify(currentContact.phonenumber) + ");'>Details</button>" + " " + "<button>Edit</button>" + " " + "<button>Delete</button></li>";
-            container.appendChild(list);   
-     	    
-			
-     	});
-  
-     	
-  	}
+            list.innerHTML = "<li class='contact-name-box'>" +
+                currentContact.name + " " + "<button onclick='details(" + JSON.stringify(currentContact.phonenumber) + ");'>Details</button>" + " " +
+                "<button onclick='edit(" + JSON.stringify(currentContact.phonenumber) + ");'>Edit</button>" + " " +
+                "<button onclick='remove(" + JSON.stringify(currentContact.phonenumber) + ")'>Delete</button></li>";
+            container.appendChild(list);
+
+
+        });
+
+
+    }
 }
 
 
