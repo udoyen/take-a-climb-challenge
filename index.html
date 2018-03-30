@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/site.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <section class="upper">
+            <div class="fields">
+                <div class="add-box-container">
+                    Name:
+                    <input type="text" name="name" id="name"> 
+                    Email:
+                    <input type="email" name="email" id="email"> 
+                    Age:
+                    <input type="number" name="age" id="age"> 
+                    Phonenumber:
+                    <input type="number" name="phonenumber" id="phonenumber"> 
+                </div>
+                <div class="myTextarea">
+                        Address: 
+                        <textarea name="address" id="address" cols="30" rows="10"></textarea>
+
+                </div>
+            </div>
+            <div>
+                <div class="btn-container">
+                    <button onclick="addNewContact();">Add Contacts</button>
+                 
+                </div>
+            </div>
+        </section>
+        <section class="lower">
+            <div class="list-box">Contact List Items
+                <ul id="contact-list"></ul>
+            </div>
+            <div class="edit-box">Edit Area</div>
+        </section>
+
+    </div>
+    <script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+div.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+section.upper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.upper .fields {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border: 2px solid black;
+}
+.upper .fields .add-box-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end;
+  
+}
+
+.add-box-container, .myTextarea {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding:  2em;
+}
+
+input,
+textarea {  
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.btn-container {
+  display: flex;
+  padding: 2em;
+  justify-content: center;
+}
+
+.lower {
+    display: flex;
+    width: 100%;
+}
+
+.lower div {
+    flex: 1;
+}
