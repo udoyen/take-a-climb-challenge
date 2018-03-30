@@ -1,3 +1,19 @@
+/*************
+Default styles
+**************/
+
+.mborder {
+  border: 2px solid black;
+}
+
+.enable-edit {
+
+}
+
+
+
+/*****************/
+
 div.wrapper {
   display: flex;
   flex-direction: column;
@@ -12,27 +28,34 @@ section.upper {
 }
 
 .upper .fields {
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  border: 2px solid black;
 }
 .upper .fields .add-box-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: flex-end;
-  
 }
 
-.add-box-container, .myTextarea {
-    flex-grow: 1;
-    flex-basis: 0;
-    padding:  2em;
+.add-box-container,
+.myTextarea {
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 2em;
+}
+
+.myTextarea {
+  display: flex;
+}
+
+.add-label {
+  padding: 1em;
 }
 
 input,
-textarea {  
+textarea {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -44,10 +67,40 @@ textarea {
 }
 
 .lower {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .lower div {
-    flex: 1;
+  flex: 1;
+  padding: 2em;
+}
+
+.edit-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-box-outer-container {
+  display: flex;
+  border: 2px solid black;
+}
+.add-box-container {
+  display: flex;
+  flex-direction: column;
+}
+
+ul li {
+  list-style: none;
+}
+.contact-name-box {
+  padding: 0.5em;
+}
+
+ul li {
+  background: lightblue;
+}
+
+ul li:nth-child(odd) {
+  background: navajowhite;
 }
