@@ -14,10 +14,10 @@
             <div class="fields">
                 <div class="add-box-container">
                     Name:
-                    <input type="text" oninvalid="setCustomValidity('Please fill all fields')" oninput="setCustomValidity(' ')" name="name" id="name" required> Email:
-                    <input type="email" oninvalid="setCustomValidity('Please fill all fields')" oninput="setCustomValidity(' ')"name="email" id="email" required> Age:
-                    <input type="number" oninvalid="setCustomValidity('Please fill all fields')" oninput="setCustomValidity(' ')" name="age" id="age" required> Phonenumber:
-                    <input type="tel" oninvalid="setCustomValidity('Please fill all fields')" oninput="setCustomValidity(' ')" name="phonenumber" id="phonenumber" required>
+                    <input type="text" name="name" id="name" required> Email:
+                    <input type="email" name="email" id="email" required> Age:
+                    <input type="number" name="age" id="age" required> Phonenumber:
+                    <input type="tel" name="phonenumber" id="phonenumber" required>
                 </div>
                 <div class="myTextarea">
                     <span class="add-label">Address:</span> 
@@ -58,7 +58,7 @@
                         <button id="e-btn" onclick="sEdit();">Edit Contact</button>
                         <button id="d-btn" onclick="sRemove();">Delete Contact</button>
                         <button id="d-btn" onclick="save();">Save Contact</button>
-                        <button id="d-btn" onclick="save();">Clear</button>
+                        <button id="d-btn" onclick="clearOtherForm();">Clear</button>
                     </div>
                 </div>
             </div>

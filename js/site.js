@@ -3,6 +3,9 @@ window.onload = init;
 // The contact manager as a global variable
 let contactManager;
 
+/**
+ * Init function
+ */
 function init() {
   // create an instance of the contact manager
   contactManager = new MyContactsManager();
@@ -15,14 +18,21 @@ function init() {
   contactManager.displayContactsAsList("contact-list");
 }
 
+/**
+ * Helper function to add new contacts
+ */
 function addNewContact() {
-  // if (this.addBtnCheck) {
   // Get the values from input fields
   let name = document.querySelector("#name");
   let email = document.querySelector("#email");
   let age = document.querySelector("#age");
   let phonenumner = document.querySelector("#phonenumber");
   let address = document.querySelector("#address");
+
+  if (!inputChecker()) {
+    alert('Empty fields are not allowed!');
+    return
+  }
 
   let newContact = new Contact(
     contactManager.trim(name.value),
@@ -38,63 +48,113 @@ function addNewContact() {
   age.value = "";
   phonenumber.value = "";
   address.value = "";
-  // refresh the table
+  // refresh the list
   contactManager.displayContactsAsList("contact-list");
-  // do not let your browser submit the form using HTTP
-  // return false;
-  // } else {
-  //   alert("Please note all fields are required!");
-  //   return;
-  // }
+
 }
 
+/**
+ * Helper function
+ */
+function inputChecker() {
+  // Get the values from input fields
+  let name = document.querySelector("#name");
+  let email = document.querySelector("#email");
+  let age = document.querySelector("#age");
+  let phonenumner = document.querySelector("#phonenumber");
+  let address = document.querySelector("#address");
 
+  if (name.value == "" || email.value === "" || age.value === "" || phonenumber === "" || address.value === "") {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+/**
+ * Helper function
+ */
 function emptyList() {
   contactManager.empty();
   contactManager.displayContactsAsList("contact-list");
 }
 
+/**
+ * Helper function
+ */
 function loadList() {
   contactManager.load();
   contactManager.displayContactsAsList("contact-list");
 }
 
+/**
+ * Helper function
+ * @param {conatact number} number 
+ */
 function details(number) {
   contactManager.details(number);
 }
 
+/**
+ * Heper function
+ * @param {contact number} contactNum 
+ */
 function edit(contactNum) {
   contactManager.edit(contactNum);
 }
 
+/**
+ * Helper function
+ */
 function remove(contactNum) {
   contactManager.remove(contactNum);
 }
 
+/**
+ * Helper function
+ */
 function sRemove() {
   contactManager.sRemove();
 }
 
+/**
+ * Helper function
+ */
 function save(contactNum) {
   contactManager.save(contactNum);
 }
 
+/**
+ * Helper function
+ */
 function sEdit() {
   contactManager.sEdit();
 }
 
+/**
+ * Helper function
+ */
 function clearForm() {
   contactManager.clearForm();
 }
 
+/**
+ * Helper function
+ */
 function clearOtherForm() {
   contactManager.clearOtherForm();
 }
 
+/**
+ * Helper function
+ */
 function save() {
   contactManager.eSave();
 }
 
+/**
+ * Helper function
+ */
 function valid() {
   contactManager.valid();
 }
@@ -102,6 +162,10 @@ function valid() {
 // function addCheck() {
 //     contactManager.addCheck();
 // }
+
+/**
+ * Contact class
+ */
 class Contact {
   constructor(name, age, email, phonenumber, address) {
     this.name = name;
@@ -119,6 +183,9 @@ class Contact {
   }
 }
 
+/**
+ * Contacts Manager class
+ */
 class MyContactsManager {
   constructor() {
     this.contactsList = [];
@@ -136,7 +203,10 @@ class MyContactsManager {
     return value.replace(/^\s+|\s+$/g, "");
   }
 
-  // add a contact
+  /**
+   * Adds contact to contact list
+   * @param {conatact obj} contact 
+   */
   add(contact) {
     this.load();
     var d = this.contactsList;
@@ -166,6 +236,10 @@ class MyContactsManager {
     // alert(this.contactsList.length);
   }
 
+  /**
+   * Details button function
+   * @param {contact number} number 
+   */
   details(number) {
     // Load the contacts
     this.load();
@@ -199,7 +273,10 @@ class MyContactsManager {
     }
   }
 
-  // Remove contact
+  /**
+   * Remove button for contact list
+   * @param {contact number} contactNum 
+   */
   remove(contactNum) {
     alert("remove");
     let ename = document.querySelector("#ename");
@@ -230,6 +307,9 @@ class MyContactsManager {
     this.displayContactsAsList("contact-list");
   }
 
+  /**
+   * Remove button for edit box
+   */
   sRemove() {
     let ephonenumber = document.querySelector("#ephonenumber");
     if (ephonenumber) {
@@ -263,6 +343,10 @@ class MyContactsManager {
     }
   }
 
+  /**
+   * Edit button for contact lists
+   * @param {contact number} number 
+   */
   edit(number) {
     this.details(number);
     this.getIndex(number);
@@ -273,6 +357,10 @@ class MyContactsManager {
     }
   }
 
+  /**
+   * Edit button function
+   * for edit box
+   */
   sEdit() {
     this.getIndexSecond();
     console.log("interest " + this.contactOfInterest);
@@ -282,6 +370,10 @@ class MyContactsManager {
     }
   }
 
+  /**
+   * 
+   * @param {contact number} number 
+   */
   getIndex(number) {
     this.load();
     var c = this.contactsList;
@@ -296,6 +388,10 @@ class MyContactsManager {
     return this.contactOfInterest;
   }
 
+  /**
+   * Get the index of the contact of interest for 
+   * edited contacts
+   */
   getIndexSecond() {
     let ephonenumber = document.querySelector("#ephonenumber");
     this.load();
@@ -317,6 +413,11 @@ class MyContactsManager {
     this.conatctsList.sort(MyContactsManager.compareByName);
   }
 
+  /**
+   * 
+   * @param {parameter 1} name1 
+   * @param {paremeter 2} name2 
+   */
   static compareByName(name1, name2) {
     if (name1 < name2) {
       return -1;
@@ -329,6 +430,9 @@ class MyContactsManager {
     return 0;
   }
 
+  /**
+   * Clears new contact form fields
+   */
   clearForm() {
     // Get the values from input fields
     let name = document.querySelector("#name");
@@ -345,12 +449,15 @@ class MyContactsManager {
     address.value = "";
   }
 
+  /**
+   * Clears edit form fields
+   */
   clearOtherForm() {
     // Get the values from input fields
     let name = document.querySelector("#ename");
     let email = document.querySelector("#eemail");
     let age = document.querySelector("#eage");
-    let phonenumner = document.querySelector("#ephonenumber");
+    let phonenumber = document.querySelector("#ephonenumber");
     let address = document.querySelector("#eaddress");
 
     // Empty the input fields
@@ -361,6 +468,9 @@ class MyContactsManager {
     address.value = "";
   }
 
+  /**
+   * Loads contacts from localStorage
+   */
   load() {
     if (localStorage.contacts !== undefined) {
       // the array of contacts is saved in JSON, let's convert
@@ -369,35 +479,60 @@ class MyContactsManager {
     }
   }
 
+  /**
+   * Saves to localStorage
+   */
   save() {
     // We can only save strings in local Storage. So, let's convert
     // our array of contacts to JSON
     localStorage.contacts = JSON.stringify(this.contactsList);
   }
 
+  /**
+   * checks form fields
+   */
+  inputChecker() {
+    // Get the values from input fields
+    let name = document.querySelector("#ename");
+    let email = document.querySelector("#eemail");
+    let age = document.querySelector("#eage");
+    let phonenumner = document.querySelector("#ephonenumber");
+    let address = document.querySelector("#eaddress");
+
+    if (name.value == "" || email.value === "" || age.value === "" || phonenumber === "" || address.value === "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Saves update ot edited contacts information
+   */
   eSave() {
     let ename = document.querySelector("#ename");
     let eemail = document.querySelector("#eemail");
     let eage = document.querySelector("#eage");
     let ephonenumber = document.querySelector("#ephonenumber");
     let eaddress = document.querySelector("#eaddress");
+    if (!this.inputChecker()) {
+      alert('Empty fields are not allowed!');
+      return;
+    }
     this.load();
     var c = this.contactsList;
     // Check and make sure no field is empty
-    if (this.checkIfValid) {
-      alert("validation passed");
-
-      c[this.contactOfInterest].name = ename.value;
-      c[this.contactOfInterest].email = eemail.value;
-      c[this.contactOfInterest].age = eage.value;
-      c[this.contactOfInterest].phonenumber = ephonenumber.value;
-      c[this.contactOfInterest].address = eaddress.value;
-      this.save();
-    } else {
-      alert("Please note all fields are required!");
-      alert("Contact wasn't saved!");
+    if (this.contactOfInterest === undefined || this.contactOfInterest === null) {
+      alert('Please click the edit button before saving');
       return;
     }
+    c[this.contactOfInterest].name = ename.value;
+    c[this.contactOfInterest].email = eemail.value;
+    c[this.contactOfInterest].age = eage.value;
+    c[this.contactOfInterest].phonenumber = ephonenumber.value;
+    c[this.contactOfInterest].address = eaddress.value;
+    this.save();
+
 
     // Make all input fields readonly  again
     // after edit
