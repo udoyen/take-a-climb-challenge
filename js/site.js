@@ -119,12 +119,6 @@ function sRemove() {
   contactManager.sRemove();
 }
 
-// /**
-//  * Helper function
-//  */
-// function save(contactNum) {
-//   contactManager.save(contactNum);
-// }
 
 /**
  * Helper function
@@ -390,7 +384,7 @@ class MyContactsManager {
 
       this.displayContactsAsList("contact-list");
     } else {
-      alert("No COntact to remove, please add one!");
+      alert("No Contact to remove, please add one!");
     }
   }
 
@@ -526,8 +520,6 @@ class MyContactsManager {
     var edit = document.querySelector("#edit");
     var details = document.querySelector("#details");
 
-    alert(edit);
-    alert(details);
 
     if (!details.hasAttribute("class")) {
       details.setAttribute("class", "details-box-header");

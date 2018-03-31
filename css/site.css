@@ -2,13 +2,60 @@
 Default styles
 **************/
 
+/********************
+font-family: 'Roboto', sans-serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'Oswald', sans-serif;
+font-family: 'Lato', sans-serif;
+
+**********************/
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i|Oswald:400,500,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800|Roboto:300,300i,400,400i,500,500i,700,700i');
+
 .mborder {
   border: 2px solid black;
 }
 
-.enable-edit {
+html {
+  box-sizing: border-box;
+  
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  
+}
+
+h1, h2, h3, h4, h5 {
+  text-shadow: 4px 4px 4px cadetblue
+}
+
+input {
+  height: 2.5em;
+  padding: 0.1em;
+}
+
+button {
+  height: 2em;
+  width: 9em;
+  border-radius: 0.5em;
+  font-size: 0.9em;
+  background: darksalmon;
+  border-color: rosybrown;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+}
+
+button:hover, button:focus {
+  background: rosybrown;
+  color: cornsilk;
+}
 /*****************/
 
 div.wrapper {
@@ -76,7 +123,7 @@ textarea {
 
 .lower div {
   flex: 1;
-  padding: 2em;
+  padding: 1em;
   background: aliceblue;
 }
 
