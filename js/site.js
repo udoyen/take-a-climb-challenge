@@ -415,8 +415,8 @@ class MyContactsManager {
 
   /**
    * 
-   * @param {parameter 1} name1 
-   * @param {paremeter 2} name2 
+   * @param {obj 1} name1 
+   * @param {obj 2} name2 
    */
   static compareByName(name1, name2) {
     if (name1 < name2) {
