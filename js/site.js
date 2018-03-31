@@ -1,7 +1,9 @@
 window.onload = init;
 
+
 // The contact manager as a global variable
 let contactManager;
+
 
 /**
  * Init function
@@ -190,8 +192,7 @@ class MyContactsManager {
   constructor() {
     this.contactsList = [];
     this.contactOfInterest;
-    this.checkIfValid;
-    this.addBtnCheck;
+    
   }
 
   // Erase all contacts
@@ -211,9 +212,7 @@ class MyContactsManager {
     this.load();
     var d = this.contactsList;
     if (d.length > 0) {
-      for (let c of d) {
-        alert(c.email);
-        alert('Contact email ' + contact.email);
+      for (let c of d) {       
 
         // Check for duplicates
         if (c.email === contact.email || c.phonenumber === contact.phonenumber) {
@@ -222,18 +221,14 @@ class MyContactsManager {
         }
 
       }
-      alert('Does not exist, added');
-      alert('New contact added from inside for loop!');
+     
       d.push(contact);
       this.save();
 
     } else {
-      alert('New contact added!');
       d.push(contact);
       this.save();
     }
-
-    // alert(this.contactsList.length);
   }
 
   /**
@@ -241,6 +236,16 @@ class MyContactsManager {
    * @param {contact number} number 
    */
   details(number) {
+    //Make All fields readonly
+    var w = document.querySelectorAll(".i-edit");
+    for (let d of w) {
+      d.setAttribute("readonly", "readonly");
+    }
+
+    // Set detail cookie
+    document.cookie = "indetails=2;path=/";
+
+    this.checkPageRefresh(1);
     // Load the contacts
     this.load();
 
@@ -269,6 +274,52 @@ class MyContactsManager {
         phonenumber.value = c.phonenumber;
         address.value = c.address;
         break;
+      }
+    }
+  }
+
+  /**
+   * 
+   * @param {state of form} cookie_value 
+   */
+  checkPageRefresh(cookie_value) {
+    if (cookie_value === 1) {
+      // Show details button
+      var edit = document.querySelector("#edit");
+      var details = document.querySelector("#details");
+      var i = document.querySelector("#ename");
+
+      if (details || i) {
+        if (details.hasAttribute("class") || i.hasAttribute("readonly")) {
+          details.removeAttribute("class");
+          alert('yes');
+        }
+      }
+
+      if (edit) {
+        if (!edit.hasAttribute("class") || !i.hasAttribute("readonly")) {
+          edit.setAttribute("class", "edit-box-header");
+        }
+      }
+    }
+
+    if (cookie_value === 2) {
+      // Show details button
+      var edit = document.querySelector("#edit");
+      var details = document.querySelector("#details");
+      var i = document.querySelector("#ename");
+
+      if (edit || i) {
+        if (edit.hasAttribute("class") || !i.hasAttribute("readonly")) {
+          edit.removeAttribute("class");
+          alert('yes for edit');
+        }
+      }
+
+      if (details) {
+        if (!details.hasAttribute("class") || i.hasAttribute("readonly")) {
+          details.setAttribute("class", "edit-box-header");
+        }
       }
     }
   }
@@ -348,9 +399,11 @@ class MyContactsManager {
    * @param {contact number} number 
    */
   edit(number) {
+    document.cookie = "indetails=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     this.details(number);
     this.getIndex(number);
     let f = document.querySelectorAll(".i-edit");
+    this.checkPageRefresh(2);
 
     for (let d of f) {
       d.removeAttribute("readonly");
@@ -362,9 +415,10 @@ class MyContactsManager {
    * for edit box
    */
   sEdit() {
+    document.cookie = "indetails=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     this.getIndexSecond();
-    console.log("interest " + this.contactOfInterest);
     let f = document.querySelectorAll(".i-edit");
+    this.checkPageRefresh(2);
     for (let d of f) {
       d.removeAttribute("readonly");
     }
@@ -570,7 +624,7 @@ class MyContactsManager {
       // creates a list item
       var list = document.createElement("li");
       list.innerHTML =
-        "<li class='contact-name-box'>" +
+        "<span class='contact-name-box'>" +
         currentContact.name +
         " " +
         "<button onclick='details(" +
@@ -583,7 +637,7 @@ class MyContactsManager {
         " " +
         "<button onclick='remove(" +
         JSON.stringify(currentContact.phonenumber) +
-        ")'>Delete</button></li>";
+        ")'>Delete</button></span>";
       container.appendChild(list);
     });
   }

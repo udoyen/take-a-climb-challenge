@@ -7,10 +7,7 @@ Default styles
 }
 
 .enable-edit {
-
 }
-
-
 
 /*****************/
 
@@ -25,13 +22,15 @@ section.upper {
   flex-direction: column;
   width: 100%;
   align-items: center;
+  background: cadetblue;
+  padding-top: 3em;
 }
 
 .upper .fields {
   display: flex;
   flex-direction: row;
   width: 50%;
-  border: 2px solid black;
+  border: 2px solid lightblue;
 }
 .upper .fields .add-box-container {
   display: flex;
@@ -48,6 +47,7 @@ section.upper {
 
 .myTextarea {
   display: flex;
+  background: aliceblue;
 }
 
 .add-label {
@@ -69,11 +69,15 @@ textarea {
 .lower {
   display: flex;
   width: 100%;
+  border-top: 4px dotted lightblue;
+  background: cadetblue;
+  border-bottom: 10px solid cadetblue;
 }
 
 .lower div {
   flex: 1;
   padding: 2em;
+  background: aliceblue;
 }
 
 .edit-fields {
@@ -83,11 +87,16 @@ textarea {
 
 .add-box-outer-container {
   display: flex;
-  border: 2px solid black;
+  border: 2px solid cadetblue;
 }
 .add-box-container {
   display: flex;
   flex-direction: column;
+  background: aliceblue;
+}
+
+ul {
+  background: cadetblue;
 }
 
 ul li {
@@ -99,8 +108,25 @@ ul li {
 
 ul li {
   background: lightblue;
+  padding: 0.6em;
+  border-left: 2px solid lightblue;
+  font-weight: bolder;
+}
+
+ul li:nth-child(even) {
+  background: aliceblue;
+  border-right: 0.5px solid lightblue;
+  border-bottom: 0.5px solid cadetblue;
 }
 
 ul li:nth-child(odd) {
-  background: navajowhite;
+  background: cadetblue;
+}
+
+.edit-box-header {
+  display: none;
+}
+
+.details-box-header {
+  display: none;
 }

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/site.css">
+    
 
 </head>
 <body>
@@ -13,6 +14,7 @@
         <section class="upper">
             <div class="fields">
                 <div class="add-box-container">
+                    <h1>Add New Contact</h1>
                     Name:
                     <input type="text" name="name" id="name" required> Email:
                     <input type="email" name="email" id="email" required> Age:
@@ -41,6 +43,8 @@
                 <div class="edit-fields">
                     <div class="add-box-outer-container">
                         <div class="add-box-container">
+                            <h1 id="edit" class="edit-box-header">Edit Contacts</h1>
+                            <h1 id="details" class="details-box-header">Contacts Details</h1>
                             Name:
                             <input class="i-edit" type="text" name="ename" id="ename" class="edit-me" readonly required> Email:
                             <input class="i-edit" type="email" name="eemail" id="eemail" class="edit-me" readonly required> Age:
@@ -55,10 +59,10 @@
                     </div>
 
                     <div class="edit-btn">
-                        <button id="e-btn" onclick="sEdit();">Edit Contact</button>
-                        <button id="d-btn" onclick="sRemove();">Delete Contact</button>
-                        <button id="d-btn" onclick="save();">Save Contact</button>
-                        <button id="d-btn" onclick="clearOtherForm();">Clear</button>
+                        <button class="e-btn" onclick="sEdit();">Edit Contact</button>
+                        <button class="d-btn" onclick="sRemove();">Delete Contact</button>
+                        <button class="d-btn" onclick="save();">Save Contact</button>
+                        <button class="d-btn" onclick="clearOtherForm();">Clear</button>
                     </div>
                 </div>
             </div>
@@ -66,5 +70,92 @@
 
     </div>
     <script src="js/site.js"></script>
+    <!-- <script type="text/javascript">       
+
+        if (document.cookie.indexOf('mycookie') == -1) {
+            // cookie doesn't exist, create it now
+            document.cookie = 'mycookie=1;path=/';
+        }
+        else {
+            // not first visit, so alert
+            alert('You refreshed!');
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            alert(typeof getCookie('inedit'));
+
+                if (getCookie('indetails') === "2") {
+                    alert('in details cookie function');
+                    let name = document.querySelector("#ename");
+                    if (name.value === "") {
+                        alert('empty');
+                    } else {
+                        alert('Not empty!');
+                        var edit = document.querySelector("#edit");
+                        var details = document.querySelector("#details");
+                        var i = document.querySelector("#ename");
+
+                        //Make All fields readonly
+                        var w = document.querySelectorAll(".i-edit");
+                        for (let d of w) {
+                            d.setAttribute("readonly", "readonly");
+                        }
+
+                        if (details || i) {
+                            if (details.hasAttribute("class") || i.hasAttribute("readonly")) {
+                                details.removeAttribute("class");
+                                alert('yes');
+                            } else {
+                                edit.setAttribute("class", "edit-box-header");
+                                w.setAttribute("readonly", "readonly");
+                            }
+                        }
+                    }
+                }
+
+                if (getCookie('inedit') === "") {
+                    alert('in edit cookie function');
+                    var edit = document.querySelector("#edit");
+                    var details = document.querySelector("#details");
+                    var i = document.querySelector("#ename");
+
+                    //Make All fields editable
+                    var w = document.querySelectorAll(".i-edit");
+                    for (let d of w) {
+                        d.removeAttribute("readonly");
+                    }
+
+                    if (edit || i) {
+                        if (edit.hasAttribute("class") || !i.hasAttribute("readonly")) {
+                            edit.removeAttribute("class");
+                            alert('yes for edit');
+                        }
+                    }
+
+                    if (details) {
+                        if (!details.hasAttribute("class") || i.hasAttribute("readonly")) {
+                            details.setAttribute("class", "edit-box-header");
+                        }
+                    }
+
+
+                }
+            
+        }
+
+    </script> -->
 </body>
 </html>
