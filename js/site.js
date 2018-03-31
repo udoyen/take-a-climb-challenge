@@ -119,12 +119,12 @@ function sRemove() {
   contactManager.sRemove();
 }
 
-/**
- * Helper function
- */
-function save(contactNum) {
-  contactManager.save(contactNum);
-}
+// /**
+//  * Helper function
+//  */
+// function save(contactNum) {
+//   contactManager.save(contactNum);
+// }
 
 /**
  * Helper function
@@ -192,7 +192,7 @@ class MyContactsManager {
   constructor() {
     this.contactsList = [];
     this.contactOfInterest;
-    
+
   }
 
   // Erase all contacts
@@ -212,7 +212,7 @@ class MyContactsManager {
     this.load();
     var d = this.contactsList;
     if (d.length > 0) {
-      for (let c of d) {       
+      for (let c of d) {
 
         // Check for duplicates
         if (c.email === contact.email || c.phonenumber === contact.phonenumber) {
@@ -221,13 +221,16 @@ class MyContactsManager {
         }
 
       }
-     
+
       d.push(contact);
       this.save();
+      alert('Contact was successfully added!');
 
     } else {
       d.push(contact);
       this.save();
+      alert('Contact was successfully added!');
+
     }
   }
 
@@ -292,7 +295,6 @@ class MyContactsManager {
       if (details || i) {
         if (details.hasAttribute("class") || i.hasAttribute("readonly")) {
           details.removeAttribute("class");
-          alert('yes');
         }
       }
 
@@ -312,7 +314,6 @@ class MyContactsManager {
       if (edit || i) {
         if (edit.hasAttribute("class") || !i.hasAttribute("readonly")) {
           edit.removeAttribute("class");
-          alert('yes for edit');
         }
       }
 
@@ -329,7 +330,6 @@ class MyContactsManager {
    * @param {contact number} contactNum 
    */
   remove(contactNum) {
-    alert("remove");
     let ename = document.querySelector("#ename");
     let eemail = document.querySelector("#eemail");
     let eage = document.querySelector("#eage");
@@ -501,6 +501,8 @@ class MyContactsManager {
     age.value = "";
     phonenumber.value = "";
     address.value = "";
+
+
   }
 
   /**
@@ -520,6 +522,20 @@ class MyContactsManager {
     age.value = "";
     phonenumber.value = "";
     address.value = "";
+
+    var edit = document.querySelector("#edit");
+    var details = document.querySelector("#details");
+
+    alert(edit);
+    alert(details);
+
+    if (!details.hasAttribute("class")) {
+      details.setAttribute("class", "details-box-header");
+    }
+
+    if (!edit.hasAttribute("class")) {
+      edit.setAttribute("class", "edit-box-header");
+    }
   }
 
   /**
@@ -586,27 +602,30 @@ class MyContactsManager {
     c[this.contactOfInterest].phonenumber = ephonenumber.value;
     c[this.contactOfInterest].address = eaddress.value;
     this.save();
-
+    if (this.trim(ename.value) === c.name) {
+      if (this.trim(eemail.value) === c.email) {
+        if (this.trim(eage.value) === c.age) {
+          if (this.trim(ephonenumber.value) === c.phonenumber) {
+            if (this.trim(eaddress.value) === c.address) {
+              alert('Contact was successfully saved!');
+            }
+          }
+        }
+      }
+    }
 
     // Make all input fields readonly  again
     // after edit
     let f = document.querySelectorAll(".i-edit");
     for (let d of f) {
       d.setAttribute("readonly", "readonly");
+
     }
 
     this.displayContactsAsList("contact-list");
   }
 
-  valid() {
-    this.checkIfValid = false;
-    return this.checkIfValid;
-  }
 
-  // addCheck() {
-  //   this.addBtnCheck = false;
-  //   return this.addBtnCheck;
-  // }
 
   displayContactsAsList(idOfContainer) {
     // empty the container that contains the results
