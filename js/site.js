@@ -16,6 +16,7 @@ function init() {
 }
 
 function addNewContact() {
+  // if (this.addBtnCheck) {
   // Get the values from input fields
   let name = document.querySelector("#name");
   let email = document.querySelector("#email");
@@ -24,11 +25,11 @@ function addNewContact() {
   let address = document.querySelector("#address");
 
   let newContact = new Contact(
-    name.value,
-    age.value,
-    email.value,
-    phonenumber.value,
-    address.value
+    contactManager.trim(name.value),
+    contactManager.trim(age.value),
+    contactManager.trim(email.value),
+    contactManager.trim(phonenumber.value),
+    contactManager.trim(address.value)
   );
   contactManager.add(newContact);
   // Empty the input fields
@@ -41,7 +42,12 @@ function addNewContact() {
   contactManager.displayContactsAsList("contact-list");
   // do not let your browser submit the form using HTTP
   // return false;
+  // } else {
+  //   alert("Please note all fields are required!");
+  //   return;
+  // }
 }
+
 
 function emptyList() {
   contactManager.empty();
@@ -81,10 +87,21 @@ function clearForm() {
   contactManager.clearForm();
 }
 
+function clearOtherForm() {
+  contactManager.clearOtherForm();
+}
+
 function save() {
   contactManager.eSave();
 }
 
+function valid() {
+  contactManager.valid();
+}
+
+// function addCheck() {
+//     contactManager.addCheck();
+// }
 class Contact {
   constructor(name, age, email, phonenumber, address) {
     this.name = name;
@@ -94,7 +111,6 @@ class Contact {
     this.address = address;
     // Static property
     Contact.numberCreated++;
-    alert("Contacts created");
   }
 
   // Static method
@@ -107,7 +123,8 @@ class MyContactsManager {
   constructor() {
     this.contactsList = [];
     this.contactOfInterest;
-    alert("MyContactsManager created");
+    this.checkIfValid;
+    this.addBtnCheck;
   }
 
   // Erase all contacts
@@ -115,24 +132,34 @@ class MyContactsManager {
     this.contactsList = [];
   }
 
+  trim(value) {
+    return value.replace(/^\s+|\s+$/g, "");
+  }
+
   // add a contact
   add(contact) {
-    if (this.contactsList.length > 0) {
-      // Check for duplicates
-      for (let c of this.contactsList) {
-        if (
-          contact.email === c.email ||
-          contact.phonenumber === c.phonenumber
-        ) {
+    this.load();
+    var d = this.contactsList;
+    if (d.length > 0) {
+      for (let c of d) {
+        alert(c.email);
+        alert('Contact email ' + contact.email);
+
+        // Check for duplicates
+        if (c.email === contact.email || c.phonenumber === contact.phonenumber) {
+          alert('Contact already exists!');
           return;
-        } else {
-          this.contactsList.push(contact);
-          this.save();
-          break;
         }
+
       }
+      alert('Does not exist, added');
+      alert('New contact added from inside for loop!');
+      d.push(contact);
+      this.save();
+
     } else {
-      this.contactsList.push(contact);
+      alert('New contact added!');
+      d.push(contact);
       this.save();
     }
 
@@ -318,6 +345,22 @@ class MyContactsManager {
     address.value = "";
   }
 
+  clearOtherForm() {
+    // Get the values from input fields
+    let name = document.querySelector("#ename");
+    let email = document.querySelector("#eemail");
+    let age = document.querySelector("#eage");
+    let phonenumner = document.querySelector("#ephonenumber");
+    let address = document.querySelector("#eaddress");
+
+    // Empty the input fields
+    name.value = "";
+    email.value = "";
+    age.value = "";
+    phonenumber.value = "";
+    address.value = "";
+  }
+
   load() {
     if (localStorage.contacts !== undefined) {
       // the array of contacts is saved in JSON, let's convert
@@ -341,18 +384,8 @@ class MyContactsManager {
     this.load();
     var c = this.contactsList;
     // Check and make sure no field is empty
-    if (
-      ename !== "" ||
-      (ename !== null &&
-        eemail !== "" &&
-        eage !== "" &&
-        ephonenumber !== "" &&
-        eaddress !== "")
-    ) {
+    if (this.checkIfValid) {
       alert("validation passed");
-      console.log("interest " + this.contactOfInterest);
-
-      console.log(c[this.contactOfInterest].name);
 
       c[this.contactOfInterest].name = ename.value;
       c[this.contactOfInterest].email = eemail.value;
@@ -362,6 +395,7 @@ class MyContactsManager {
       this.save();
     } else {
       alert("Please note all fields are required!");
+      alert("Contact wasn't saved!");
       return;
     }
 
@@ -375,6 +409,16 @@ class MyContactsManager {
     this.displayContactsAsList("contact-list");
   }
 
+  valid() {
+    this.checkIfValid = false;
+    return this.checkIfValid;
+  }
+
+  // addCheck() {
+  //   this.addBtnCheck = false;
+  //   return this.addBtnCheck;
+  // }
+
   displayContactsAsList(idOfContainer) {
     // empty the container that contains the results
     let container = document.querySelector("#" + idOfContainer);
@@ -387,7 +431,7 @@ class MyContactsManager {
     }
 
     // iterate on the array of users
-    this.contactsList.forEach(function(currentContact) {
+    this.contactsList.forEach(function (currentContact) {
       // creates a list item
       var list = document.createElement("li");
       list.innerHTML =
